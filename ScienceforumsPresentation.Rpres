@@ -59,7 +59,6 @@ ggplot(topics, aes(x=posts)) + geom_histogram(binwidth=2,col="grey50") +
 Problem: most people don't stay
 ===============================
 
-
 ```{r, echo=FALSE, fig.width=12, cache=TRUE}
 ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1, col="grey50") + 
   scale_x_continuous(limits=c(1,100)) + 
