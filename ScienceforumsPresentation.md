@@ -1,17 +1,51 @@
-ScienceforumsPresentation
+ScienceForums.Net
 ========================================================
-author: 
-date: 
+author: Philipp Burckhardt, Alex Reinhart, Jerry Zhang
+date: October 15, 2013
 
-First Slide
-========================================================
+Overview of SFN
+===============
 
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
+* Founded in 2002
+* 750,000 posts
+* 65,000 members
+* 5,000 new posts per month
+* 3rd largest science discussion forum
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+Userbase
+========
+
+* Mostly non-scientists interested in science
+* "Real" scientists don't have the time to waste
+* Lots of crazy people
+* Recent topics:
+  * "Is It Possible to Artificially Induce Hair or Fur Growth All Over The Human Body?"
+  * "i have disproved EVOLUTION!!!!!!!!!!! darwin was wrong!"
+  * "Where can i buy chemicals?"
+
+Posting activity
+================
+
+![plot of chunk unnamed-chunk-1](ScienceforumsPresentation-figure/unnamed-chunk-1.png) 
+
+
+New registrations
+=================
+
+![plot of chunk unnamed-chunk-2](ScienceforumsPresentation-figure/unnamed-chunk-2.png) 
+
+
+Problem: most topics are boring
+===============================
+
+![plot of chunk unnamed-chunk-3](ScienceforumsPresentation-figure/unnamed-chunk-3.png) 
+
+
+Problem: most people don't stay
+===============================
+
+![plot of chunk unnamed-chunk-4](ScienceforumsPresentation-figure/unnamed-chunk-4.png) 
+
 
 Slide With Code
 ========================================================
@@ -20,7 +54,6 @@ Slide With Code
 ```r
 library(googleVis)
 op <- options(gvis.plot.tag='chart')
-library(zoo)
 load("ForumPosts.RData")
 colnames(motion.data3)[1:4] <- c("Category","Date","Posts","Views")
 levels(motion.data3$Category) <- c("Biology","Chemistry","Chemistry","Climate","CS","Engineering","General","Math",
@@ -32,15 +65,15 @@ motion.data3 <- aggregate(formula=cbind(Views,Posts)~Category+Date,FUN=sum,data=
 Slide With Plot
 ========================================================
 
-<!-- MotionChart generated in R 3.0.2 by googleVis 0.4.5 package -->
-<!-- Sat Oct 12 11:44:47 2013 -->
+<!-- MotionChart generated in R 3.0.1 by googleVis 0.4.5 package -->
+<!-- Sat Oct 12 13:54:50 2013 -->
 
 
 <!-- jsHeader -->
 <script type="text/javascript">
  
 // jsData 
-function gvisDataMotionChartID76c13341d4c () {
+function gvisDataMotionChartID2881489b28b1 () {
 var data = new google.visualization.DataTable();
 var datajson =
 [
@@ -888,14 +921,14 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartMotionChartID76c13341d4c() {
-var data = gvisDataMotionChartID76c13341d4c();
+function drawChartMotionChartID2881489b28b1() {
+var data = gvisDataMotionChartID2881489b28b1();
 var options = {};
 options["width"] =    600;
 options["height"] =    500;
 
     var chart = new google.visualization.MotionChart(
-    document.getElementById('MotionChartID76c13341d4c')
+    document.getElementById('MotionChartID2881489b28b1')
     );
     chart.draw(data,options);
     
@@ -919,9 +952,9 @@ if (newPackage)
   pkgs.push(chartid);
   
 // Add the drawChart function to the global list of callbacks
-callbacks.push(drawChartMotionChartID76c13341d4c);
+callbacks.push(drawChartMotionChartID2881489b28b1);
 })();
-function displayChartMotionChartID76c13341d4c() {
+function displayChartMotionChartID2881489b28b1() {
   var pkgs = window.__gvisPackages = window.__gvisPackages || [];
   var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
   window.clearTimeout(window.__gvisLoad);
@@ -945,11 +978,11 @@ callbacks.shift()();
 </script>
  
 <!-- jsChart -->  
-<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID76c13341d4c"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID2881489b28b1"></script>
  
 <!-- divChart -->
   
-<div id="MotionChartID76c13341d4c"
+<div id="MotionChartID2881489b28b1"
   style="width: 600px; height: 500px;">
 </div>
 
