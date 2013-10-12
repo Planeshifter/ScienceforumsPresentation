@@ -1,36 +1,46 @@
-# Markdown example with knitr and googleVis
-===========================================
-This is a little Markdown example file.
-Set the googleVis options first.
-In this case change the behaviour of plot.gvis
+ScienceforumsPresentation
+========================================================
+author: 
+date: 
+
+First Slide
+========================================================
+
+For more details on authoring R presentations click the
+**Help** button on the toolbar.
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Slide With Code
+========================================================
+
 
 ```r
 library(googleVis)
-op <- options(gvis.plot.tag = "chart")
+op <- options(gvis.plot.tag='chart')
 library(zoo)
 load("ForumPosts.RData")
-colnames(motion.data3)[1:4] <- c("Category", "Date", "Posts", "Views")
-levels(motion.data3$Category) <- c("Biology", "Chemistry", "Chemistry", "Climate", 
-    "CS", "Engineering", "General", "Math", "Philosophy & Religion", "Physics", 
-    "Politics", "Speculations", "Staff")
-motion.data3$Date <- as.POSIXlt(motion.data3$Date)$year + 1900
-motion.data3 <- aggregate(formula = cbind(Views, Posts) ~ Category + Date, FUN = sum, 
-    data = motion.data3)
+colnames(motion.data3)[1:4] <- c("Category","Date","Posts","Views")
+levels(motion.data3$Category) <- c("Biology","Chemistry","Chemistry","Climate","CS","Engineering","General","Math",
+                                   "Philosophy & Religion","Physics","Politics","Speculations","Staff")
+motion.data3$Date <-as.POSIXlt(motion.data3$Date)$year + 1900
+motion.data3 <- aggregate(formula=cbind(Views,Posts)~Category+Date,FUN=sum,data=motion.data3)
 ```
 
-The following plot statements will automatically return the HTML
-required for the 'knitted' output.
- 
-## Combo chart
+Slide With Plot
+========================================================
+
 <!-- MotionChart generated in R 3.0.2 by googleVis 0.4.5 package -->
-<!-- Sat Oct 12 11:39:30 2013 -->
+<!-- Sat Oct 12 11:43:16 2013 -->
 
 
 <!-- jsHeader -->
 <script type="text/javascript">
  
 // jsData 
-function gvisDataMotionChartID12e04883a60 () {
+function gvisDataMotionChartID76c59e4c7 () {
 var data = new google.visualization.DataTable();
 var datajson =
 [
@@ -878,14 +888,14 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartMotionChartID12e04883a60() {
-var data = gvisDataMotionChartID12e04883a60();
+function drawChartMotionChartID76c59e4c7() {
+var data = gvisDataMotionChartID76c59e4c7();
 var options = {};
 options["width"] =    600;
 options["height"] =    500;
 
     var chart = new google.visualization.MotionChart(
-    document.getElementById('MotionChartID12e04883a60')
+    document.getElementById('MotionChartID76c59e4c7')
     );
     chart.draw(data,options);
     
@@ -909,9 +919,9 @@ if (newPackage)
   pkgs.push(chartid);
   
 // Add the drawChart function to the global list of callbacks
-callbacks.push(drawChartMotionChartID12e04883a60);
+callbacks.push(drawChartMotionChartID76c59e4c7);
 })();
-function displayChartMotionChartID12e04883a60() {
+function displayChartMotionChartID76c59e4c7() {
   var pkgs = window.__gvisPackages = window.__gvisPackages || [];
   var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
   window.clearTimeout(window.__gvisLoad);
@@ -935,11 +945,11 @@ callbacks.shift()();
 </script>
  
 <!-- jsChart -->  
-<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID12e04883a60"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartMotionChartID76c59e4c7"></script>
  
 <!-- divChart -->
   
-<div id="MotionChartID12e04883a60"
+<div id="MotionChartID76c59e4c7"
   style="width: 600px; height: 500px;">
 </div>
 
