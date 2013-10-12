@@ -1,17 +1,68 @@
-ScienceforumsPresentation
+ScienceForums.Net
 ========================================================
-author: 
-date: 
+author: Philipp Burckhardt, Alex Reinhart, Jerry Zhang
+date: October 15, 2013
 
-First Slide
-========================================================
+Overview of SFN
+===============
 
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
+* Founded in 2002
+* 750,000 posts
+* 65,000 members
+* 5,000 new posts per month
+* 3rd largest science discussion forum
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+Userbase
+========
+
+* Mostly non-scientists interested in science
+* "Real" scientists don't have the time to waste
+* Lots of crazy people
+* Recent topics:
+  * "Is It Possible to Artificially Induce Hair or Fur Growth All Over The Human Body?"
+  * "i have disproved EVOLUTION!!!!!!!!!!! darwin was wrong!"
+  * "Where can i buy chemicals?"
+
+Posting activity
+================
+
+```{r, echo=FALSE, fig.width=12}
+library(ggplot2)
+load('posts.RData')
+theme_set(new=theme_grey(base_size=18))
+ggplot(posts, aes(x=post_date, fill=new_topic)) + 
+  geom_histogram(binwidth=60*60*24*(365.25/12)) +
+  labs(x="Date", y="Posts", title="Posts per month", fill="Post type")
+```
+
+New registrations
+=================
+
+```{r, echo=FALSE, fig.width=12}
+load('members.RData')
+ggplot(members, aes(x=joined)) + geom_histogram(binwidth=2592000) + 
+  labs(y="Registrations", x="Date", title="Registrations per month")
+```
+
+Problem: most topics are boring
+===============================
+
+```{r, echo=FALSE, fig.width=12}
+load('topics.RData')
+ggplot(topics, aes(x=posts)) + geom_histogram(binwidth=2) +
+  scale_x_continuous(limits=c(0, 50)) +
+  labs(x="Posts per topic", y="Topics", title="Discussion lengths")
+```
+
+Problem: most people don't stay
+===============================
+
+```{r, echo=FALSE, fig.width=12}
+ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1) + 
+  scale_x_continuous(limits=c(1,100)) + 
+  labs(x="Days between registration and last visit", y="Members",
+       title="Member activity lifetime")
+```
 
 Slide With Code
 ========================================================
@@ -19,7 +70,6 @@ Slide With Code
 ```{r setOptions, message=FALSE}
 library(googleVis)
 op <- options(gvis.plot.tag='chart')
-library(zoo)
 load("ForumPosts.RData")
 colnames(motion.data3)[1:4] <- c("Category","Date","Posts","Views")
 levels(motion.data3$Category) <- c("Biology","Chemistry","Chemistry","Climate","CS","Engineering","General","Math",
