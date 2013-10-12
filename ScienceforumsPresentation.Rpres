@@ -40,7 +40,7 @@ New registrations
 
 ```{r, echo=FALSE, fig.width=12}
 load('members.RData')
-ggplot(members, aes(x=joined)) + geom_histogram(binwidth=2592000) + 
+ggplot(members, aes(x=joined)) + geom_histogram(binwidth=2592000,col="grey50") + 
   labs(y="Registrations", x="Date", title="Registrations per month")
 ```
 
@@ -49,7 +49,7 @@ Problem: most topics are boring
 
 ```{r, echo=FALSE, fig.width=12}
 load('topics.RData')
-ggplot(topics, aes(x=posts)) + geom_histogram(binwidth=2) +
+ggplot(topics, aes(x=posts)) + geom_histogram(binwidth=2,col="grey50") +
   scale_x_continuous(limits=c(0, 50)) +
   labs(x="Posts per topic", y="Topics", title="Discussion lengths")
 ```
@@ -58,7 +58,7 @@ Problem: most people don't stay
 ===============================
 
 ```{r, echo=FALSE, fig.width=12}
-ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1) + 
+ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1,col="grey50") + 
   scale_x_continuous(limits=c(1,100)) + 
   labs(x="Days between registration and last visit", y="Members",
        title="Member activity lifetime")
