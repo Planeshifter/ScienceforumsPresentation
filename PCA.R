@@ -14,5 +14,4 @@ ggp <- ggp + coord_equal() + geom_text(data=vPCs, aes(x = fit$rotation[,"PC1"]*m
 #Draw arrow
 ggp <- ggp + geom_segment(data=vPCs, aes(x = 0, y = 0, xend = fit$rotation[,"PC1"]*multiple*0.8, yend = fit$rotation[,"PC2"]*multiple*0.8), arrow = arrow(length = unit(.2, 'cm')), color = "grey30")
 ggp <- ggp + theme(aspect.ratio=1) + theme_minimal()
-x11()
 print(ggp)
