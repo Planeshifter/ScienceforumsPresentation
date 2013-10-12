@@ -64,6 +64,27 @@ ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1,col="grey50") +
        title="Member activity lifetime")
 ```
 
+The dedicated few
+=================
+
+```{r, echo=FALSE, fig.width=12}
+members$joinedyear = (as.integer(members$joined)/(60*60*24*365))+1970
+ggplot(members[members$reps>0,], aes(x=posts, y=reps, col=joinedyear,
+                                     size = members_profile_views)) +
+  geom_point() +
+  labs(x="Posts", y="Reputation", title="Forum Reputation versus Posts",
+       size="Profile views", color="Year joined") +
+  scale_x_log10(limits=c(100, 40000)) +
+  scale_color_gradient(label = function(year) floor(year), low="red",
+                       high="black") +
+  geom_text(data = subset(members,
+                          (reps > 700 | (posts > 10000 & reps > 200))),
+            aes(x = posts, y = reps, label = name),
+            col = "black", hjust = -0.1, size = 6) +
+  ylim(0,3000)
+```
+
+
 Most popular sections
 =====================
 
