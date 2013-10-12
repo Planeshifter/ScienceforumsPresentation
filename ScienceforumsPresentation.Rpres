@@ -1,3 +1,5 @@
+<link href="repmat.css" rel="stylesheet"></link>
+
 ScienceForums.Net
 ========================================================
 author: Philipp Burckhardt, Alex Reinhart, Jerry Zhang
@@ -26,7 +28,7 @@ Userbase
 Posting activity
 ================
 
-```{r, echo=FALSE, fig.width=12}
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
 library(ggplot2)
 load('posts.RData')
 theme_set(new=theme_grey(base_size=18))
@@ -38,7 +40,7 @@ ggplot(posts, aes(x=post_date, fill=new_topic)) +
 New registrations
 =================
 
-```{r, echo=FALSE, fig.width=12}
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
 load('members.RData')
 ggplot(members, aes(x=joined)) + geom_histogram(binwidth=2592000,col="grey50") + 
   labs(y="Registrations", x="Date", title="Registrations per month")
@@ -47,7 +49,7 @@ ggplot(members, aes(x=joined)) + geom_histogram(binwidth=2592000,col="grey50") +
 Problem: most topics are boring
 ===============================
 
-```{r, echo=FALSE, fig.width=12}
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
 load('topics.RData')
 ggplot(topics, aes(x=posts)) + geom_histogram(binwidth=2,col="grey50") +
   scale_x_continuous(limits=c(0, 50)) +
@@ -57,8 +59,9 @@ ggplot(topics, aes(x=posts)) + geom_histogram(binwidth=2,col="grey50") +
 Problem: most people don't stay
 ===============================
 
-```{r, echo=FALSE, fig.width=12}
-ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1,col="grey50") + 
+
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
+ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1, col="grey50") + 
   scale_x_continuous(limits=c(1,100)) + 
   labs(x="Days between registration and last visit", y="Members",
        title="Member activity lifetime")
@@ -67,7 +70,7 @@ ggplot(members, aes(x=active_days)) + geom_histogram(binwidth=1,col="grey50") +
 The dedicated few
 =================
 
-```{r, echo=FALSE, fig.width=12}
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
 members$joinedyear = (as.integer(members$joined)/(60*60*24*365))+1970
 ggplot(members[members$reps>0,], aes(x=posts, y=reps, col=joinedyear,
                                      size = members_profile_views)) +
@@ -83,7 +86,6 @@ ggplot(members[members$reps>0,], aes(x=posts, y=reps, col=joinedyear,
             col = "black", hjust = -0.1, size = 6) +
   ylim(0,3000)
 ```
-
 
 Most popular sections
 =====================
@@ -104,6 +106,29 @@ motion.data3 <- aggregate(formula=cbind(Views, Posts) ~ Category + Date,
 p <- gvisMotionChart(xvar="Views", yvar="Posts", data=motion.data3,
                      timevar="Date", idvar="Category")
 plot(p)
+```
+
+Let the masses decide?
+======================
+
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="repmat.js"></script>
+<div id="d3contain"></div>
+
+Causing a bit of trouble
+========================
+
+```{r, echo=FALSE, fig.width=12}
+library(scales)
+library(RColorBrewer)
+load('modlogs.RData')
+ggplot(modlogs, aes(x=ctime, fill=name)) +
+  geom_histogram(position="fill",
+                 binwidth=60*60*24*(365.25/12)) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_manual(values=colorRampPalette(brewer.pal(9, "Set1"))(16)) +
+  labs(x="Date", y="Log entries", title="Moderator actions by section",
+       fill="Section")
 ```
 
 Principal Component Analysis
