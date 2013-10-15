@@ -12,6 +12,7 @@ Overview of SFN
 * 750,000 posts
 * 65,000 members
 * 5,000 new posts per month
+* 300,000 unique visitors each month
 * 3rd largest science discussion forum
 
 Userbase
@@ -28,10 +29,13 @@ Userbase
 Posting activity
 ================
 
-```{r, echo=FALSE, fig.width=12, cache=TRUE}
+```{r, echo=FALSE}
 library(ggplot2)
-load('posts.RData')
 theme_set(new=theme_grey(base_size=18))
+```
+
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
+load('posts.RData')
 ggplot(posts, aes(x=post_date, fill=new_topic)) + 
   geom_histogram(binwidth=60*60*24*(365.25/12)) +
   labs(x="Date", y="Posts", title="Posts per month", fill="Post type")
@@ -45,6 +49,24 @@ load('members.RData')
 ggplot(members, aes(x=joined)) + geom_histogram(binwidth=2592000,col="grey50") + 
   labs(y="Registrations", x="Date", title="Registrations per month")
 ```
+
+Where members come from
+=======================
+
+Keyword | Hits
+--------|-----
+science forums | 4102
+chemistry wallpaper | 2622
+does honey go bad | 2575
+thickness of paper | 1805
+dreaming while awake | 1507
+where does space end | 1497
+how to make hydrochloric acid | 1312
+what weighs an ounce | 1116
+opposite of love | 1100
+random nose bleeds | 1095
+why are men attracted to breasts | 1051
+
 
 Problem: most topics are boring
 ===============================
@@ -87,10 +109,17 @@ ggplot(members[members$reps>0,], aes(x=posts, y=reps, col=joinedyear,
   ylim(0,3000)
 ```
 
+Let the masses decide?
+======================
+
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="repmat.js"></script>
+<div id="d3contain"></div>
+
 Most popular sections
 =====================
 
-```{r, echo=FALSE,results='asis'}
+```{r, echo=FALSE, results='asis'}
 library(googleVis)
 op <- options(gvis.plot.tag='chart')
 load("ForumPosts.RData")
@@ -104,24 +133,23 @@ motion.data3 <- aggregate(formula=cbind(Views, Posts) ~ Category + Date,
                           FUN=sum, data=motion.data3)
 
 p <- gvisMotionChart(xvar="Views", yvar="Posts", data=motion.data3,
-                     timevar="Date", idvar="Category")
+                     timevar="Date", idvar="Category",
+                     options=list(width=900,
+                                  state='\n{"colorOption":"_UNIQUE_COLOR","iconKeySettings":[{"key":{"dim0":"Speculations"}},{"key":{"dim0":"General"}},{"key":{"dim0":"Biology"}},{"key":{"dim0":"Chemistry"}},{"key":{"dim0":"Physics"}},{"key":{"dim0":"Philosophy & Religion"}}],"xZoomedIn":false,"sizeOption":"_UNISIZE","xLambda":1,"orderedByX":true,"nonSelectedAlpha":0.4,"playDuration":15000,"xZoomedDataMax":12,"showTrails":false,"iconType":"VBAR","yZoomedDataMin":0,"dimensions":{"iconDimensions":["dim0"]},"yZoomedDataMax":20000,"time":"2002","xAxisOption":"_ALPHABETICAL","uniColorForNonSelected":false,"yAxisOption":"3","orderedByY":false,"duration":{"multiplier":1,"timeUnit":"Y"},"yLambda":1,"yZoomedIn":false,"xZoomedDataMin":0}\n'))
 plot(p)
 ```
-
-Let the masses decide?
-======================
-
-<script src="http://d3js.org/d3.v3.js"></script>
-<script src="repmat.js"></script>
-<div id="d3contain"></div>
 
 Causing a bit of trouble
 ========================
 
-```{r, echo=FALSE, fig.width=12}
+```{r, echo=FALSE, fig.width=12, cache=TRUE}
 library(scales)
 library(RColorBrewer)
 load('modlogs.RData')
+levels(modlogs$name) <- c("Biology", "Chemistry",
+                          "Climate", "CS", "Engineering", "General",
+                          "Math", "Philosophy & Religion", "Physics",
+                          "Politics", "Speculations", "Staff")
 ggplot(modlogs, aes(x=ctime, fill=name)) +
   geom_histogram(position="fill",
                  binwidth=60*60*24*(365.25/12)) +
@@ -153,3 +181,9 @@ ggp <- ggp + theme(aspect.ratio=1) + theme_minimal()
 print(ggp)
 ```
 
+What's the opposite of love, anyway?
+====================================
+
+"It often happens, for example, that people eventually fall madly in love with those they initially find repulsive and hateful, but people they find uninteresting from the outset usually never arouse any strong emotions in them. This suggests that love and hate may be intensified emotions which first arise from the repression of their opposites, so in this sense they might be essentially related and thus not true opposites. In the midst of many love relationships there is often a core of hatred over some particular aspect of the beloved which is not quite right, and which becomes all the more intolerable because the rest of the person's features are so intimately embraced, since that brings the disliked feature into a repulsive proximity. Even though Freud's overall perspective is now generally rejected, many of his isolated observations of human behavior remain instructive, and his theory that romantic love arises out of the overcoming of hatred for the parent of the beloved's gender again suggests a close nexus between love and hate."
+
+-- Marat
